@@ -6,6 +6,7 @@ import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,7 @@ public class ClientController {
             return new ResponseEntity<>("email already in use", HttpStatus.FORBIDDEN);
         }
 
-        String accountNumber = "VIN-" + getRandomNumber(1000000,99999999);
+        String accountNumber = CardUtils.getAccountNumber();
 
         Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));
 
@@ -65,10 +66,6 @@ public class ClientController {
     @GetMapping("/api/clients/current")
     public ClientDTO getClientsCurrent(Authentication authentication) {
         return new ClientDTO(clientService.getClientByEmail(authentication.getName()));
-    }
-
-    public int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
     }
 
 }
