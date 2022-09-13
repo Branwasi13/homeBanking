@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/cards.css">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <nav class="navbar navbar-expand-xl bg-light">
+              <div class="">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              </div>
+              <div class="collapse navbar-collapse d-xl-flex justify-content-xl-evenly align-items-xl-center" id="navbarNav">
+                <div class="col-2">
+                  <a class="navbar-brand mx-lg-5" href="#"><img class="logo-img" src="./assets/img/mindhu_brothers.png"
+                      alt=""></a>
+                </div>
+                <ul class="navbar-nav navbarItems col-8 d-xl-flex justify-content-xl-evenly align-items-xl-center">
+                  <li class="nav-item ms-xl-5">
+                    <a class="nav-hover" aria-current="page" href="./transfers.html"><i
+                        class="bi bi-arrow-left-right pe-1"></i>Transfers</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-hover" href="./accounts.html"><i class="bi bi-wallet2 pe-1"></i>accounts</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-hover" href="#"><i class="bi bi-credit-card pe-1"></i>cards</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-hover me-lg-5" href="./postnet.html"><i class="bi bi-currency-dollar pe-1"></i>postnet</a>
+                  </li>
+                </ul>
+                <div class="col-2">
+                  <div class="d-flex float-xl-end align-items-xl-center">
+                    <div class="dropdown-center me-xl-4">
+                      <a class=" bg-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i type="button" class="position-relative bi bi-bell bell">
+                        </i>
+                      </a>
+                      <ul class="dropdown-menu notification dropdown-menu-xl-end">
+                        <li><a class="dropdown-item" href="#">
+                            you don't have any notification</a></li>
+                      </ul>
+                    </div>
+                    <div class="dropdown-center me-xl-5">
+                      <a class=" bg-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img v-if="client.firstName == 'Melba'" class="profile"
+                          src="https://pbs.twimg.com/profile_images/1337757611698032641/DBFJ-khl_400x400.jpg" alt="">
+                        <img v-else class="profile"
+                          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                          alt="">
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-xl-end">
+                        <li @click="logOut"><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right pe-1"></i>Sing
+                            Out</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+        </header>
+        <main>
+            <div class="w-100 accountBackground d-flex text-center align-items-center">
+                <div class="container">
+                    <h2 class="fw-bold">Cards</h2>
+                </div>
+            </div>
+            <div class="container-fluid mt-4">
+                <div class="text-center">
+                    <button class="custom-btn btn-7" v-if="cards.length < '6'" @click="createCards"><span>Create Cards</span></button>
+                    <h4 v-else>can only have 6 cards</h4>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 d-flex flex-wrap justify-content-around">
+                        <div v-for="card in creditCard" v-show="card.stateOfCards == true" class="col-xxl-6 cards">
+                            <div class="d-flex justify-content-center">
+                                <h2 class="text-center">Credit Card</h2>
+                                <button type="button" class="btn-close" @Click="deleteCards(card.number)" aria-label="Close"></button>         
+                            </div>
+                            <div v-if="creditCard.length !== '0'" class="card mx-auto">
+                                <div :class="{ 'card_gold' : card.cardColor == 'GOLD' , 'card_silver' : card.cardColor == 'SILVER' , 'card_titanium' : card.cardColor == 'TITANIUM' }"
+                                    class="card__front">
+                                    <img class="card__front-square card__square1" src="./assets/img/chip.png">
+                                    <img class="card__front-logo card__logo"
+                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Visa_Logo.png/640px-Visa_Logo.png">
+                                    <p class="card_numer">{{card.number}}</p>
+                                    <div class="card__space-75">
+                                        <span class="card__label">Card holder</span>
+                                        <p class="card__info">{{card.cardHolder}}</p>
+                                    </div>
+                                    <div class="card__space-25">
+                                        <div v-if="date >= card.fromDate">
+                                            <span class="card__label text-danger">expired</span>
+                                            <p class="card__info text-danger"><del>{{newDate(card.fromDate)}}</del></p>
+                                        </div>
+                                        <div v-else>
+                                            <span class="card__label">Expires</span>
+                                            <p class="card__info">{{newDate(card.fromDate)}}</p>    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div :class="{ 'card_gold' : card.cardColor == 'GOLD' , 'card_silver' : card.cardColor == 'SILVER' , 'card_titanium' : card.cardColor == 'TITANIUM' }"
+                                    class="card-body card__back">
+                                    <div class="card__black-line"></div>
+                                    <div class="card__back-content">
+                                        <div class="card__secret">
+                                            <p class="card__secret--last">{{card.cvv}}</p>
+                                        </div>
+                                        <img class="card__back-square card__square"
+                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Visa_Logo.png/640px-Visa_Logo.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center" v-if="creditCard.length == '0'">
+                            <h3>Do not you have a credit card</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 d-flex flex-wrap justify-content-around">
+                        <div v-for="card in debitCard" v-show="card.stateOfCards == true" class="col-xxl-6 cards">
+                            <div class="d-flex justify-content-center">
+                                <h2 class="text-center">Debit Card</h2>
+                                <button type="button" class="btn-close" @Click="deleteCards(card.number)"></button>
+                            </div>
+                            <div v-if="debitCard.length !== '0'" class="card mx-auto">
+                                <div :class="{ 'card_gold' : card.cardColor == 'GOLD' , 'card_silver' : card.cardColor == 'SILVER' , 'card_titanium' : card.cardColor == 'TITANIUM' }"
+                                    class="card__front">
+                                    <img class="card__front-square card__square1" src="./assets/img/chip.png">
+                                    <img class="card__front-logo card__logo"
+                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Visa_Logo.png/640px-Visa_Logo.png">
+                                    <p class="card_numer">{{card.number}}</p>
+                                    <div class="card__space-75">
+                                        <span class="card__label">Card holder</span>
+                                        <p class="card__info">{{card.cardHolder}}</p>
+                                    </div>
+                                    <div class="card__space-25">
+                                        <div v-if="date >= card.fromDate">
+                                            <span class="card__label text-danger">expired</span>
+                                            <p class="card__info text-danger"><del>{{newDate(card.fromDate)}}</del></p>
+                                        </div>
+                                        <div v-else>
+                                            <span class="card__label">Expires</span>
+                                            <p class="card__info">{{newDate(card.fromDate)}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div :class="{ 'card_gold' : card.cardColor == 'GOLD' , 'card_silver' : card.cardColor == 'SILVER' , 'card_titanium' : card.cardColor == 'TITANIUM' }"
+                                    class="card-body card__back">
+                                    <div class="card__black-line"></div>
+                                    <div class="card__back-content">
+                                        <div class="card__secret">
+                                            <p class="card__secret--last">{{card.cvv}}</p>
+                                        </div>
+                                        <img class="card__back-square card__square"
+                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Visa_Logo.png/640px-Visa_Logo.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center" v-if="debitCard.length == '0'">
+                            <h3>you don't have a debit card</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+            </g>
+        </svg>
+        <div class="" style="background-color: #fff;">
+            <h3>&copy;Brandon Wasilewicz 2022</h3>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./assets/js/cards.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tranfers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./assets/css/transfers.css">
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <nav class="navbar navbar-expand-xl bg-light">
+        <div class="">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse d-xl-flex justify-content-xl-evenly align-items-xl-center" id="navbarNav">
+          <div class="col-2">
+            <a class="navbar-brand mx-lg-5" href="#"><img class="logo-img" src="./assets/img/mindhu_brothers.png"
+                alt=""></a>
+          </div>
+          <ul class="navbar-nav navbarItems col-8 d-xl-flex justify-content-xl-evenly align-items-xl-center">
+            <li class="nav-item ms-xl-5">
+              <a class="nav-hover" aria-current="page" href="#"><i
+                  class="bi bi-arrow-left-right pe-1"></i>Transfers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-hover" href="./accounts.html"><i class="bi bi-wallet2 pe-1"></i>accounts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-hover" href="./cards.html"><i class="bi bi-credit-card pe-1"></i>cards</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-hover me-lg-5" href="./postnet.html"><i class="bi bi-currency-dollar pe-1"></i>postnet</a>
+            </li>
+          </ul>
+          <div class="col-2">
+            <div class="d-flex float-xl-end align-items-xl-center">
+              <div class="dropdown-center me-xl-4">
+                <a class=" bg-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i type="button" class="position-relative bi bi-bell bell">
+                  </i>
+                </a>
+                <ul class="dropdown-menu notification dropdown-menu-xl-end">
+                  <li><a class="dropdown-item" href="#">
+                      you don't have any notification</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-center me-xl-5">
+                <a class=" bg-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img v-if="client.firstName == 'Melba'" class="profile"
+                    src="https://pbs.twimg.com/profile_images/1337757611698032641/DBFJ-khl_400x400.jpg" alt="">
+                  <img v-else class="profile"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    alt="">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-xl-end">
+                  <li @click="logOut"><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right pe-1"></i>Sing
+                      Out</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="w-100 accountBackground d-flex text-center align-items-center">
+        <div class="container">
+          <h2 class="fw-bold">Transfers</h2>
+        </div>
+      </div>
+      <div>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Transfer Detail</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>to: {{originAccount}}</h5>
+                <h5>from: {{destinyAccount}}</h5>
+                <h5>${{amount}}</h5>
+              </div>
+              <p>are you sure to transfer to this account?</p>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" @click="newTranfer">yes, transfer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container d-flex align-items-center justify-content-center pt-4">
+          <div class="card px-1 py-4">
+            <div class="card-body">
+              <h5 class="card-title mb-3 text-center">Make a transfer</h5>
+              <div class="d-flex flex-row">
+                <label class="radio text-center">
+                  <input v-model="tranferType" type="radio" name="add" value="own account" checked><span>own
+                    accounts</span>
+                </label>
+                <label class="radio text-center"> <input v-model="tranferType" type="radio" name="add"
+                    value="other accounts"> <span>other accounts</span></label>
+              </div>
+              <div>
+                <h5>origin account</h5>
+                <select v-model="originAccount" class="form-select form-select-lg mb-3"
+                  aria-label=".form-select-lg example">
+                  <option v-for="account in accounts" v-show="account.number != destinyAccount" :value="account.number">
+                    {{account.number}}</option>
+                </select>
+              </div>
+              <div v-if="tranferType == 'own account'">
+                <h5>destiny account</h5>
+                <select v-model="destinyAccount" class="form-select form-select-lg mb-3"
+                  aria-label=".form-select-lg example">
+                  <option v-for="account in accounts" v-show="account.number != originAccount" :value="account.number">
+                    {{account.number}}</option>
+                </select>
+              </div>
+              <div class="mb-3" v-if="tranferType == 'other accounts'">
+                <h5>destiny account</h5>
+                <input v-model="destinyAccount" type="text" class="form-control" placeholder="VIN-########">
+              </div>
+              <div class="mb-3">
+                <h5>Amount</h5>
+                <input v-model="amount" type="number" class="form-control" placeholder="0 $" name="" id="amount">
+              </div>
+              <div class="form-floating">
+                <textarea v-model="description" class="form-control" placeholder="Leave a comment here"
+                  id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Description</label>
+              </div>
+              <div>
+                <div class="mt-3"
+                  v-if="destinyAccount == false || originAccount == false || description == '' || amount <= 0">
+                  <h6 class="alert alert-danger" role="alert">
+                    enter all the fields to make a transfer
+                  </h6>
+                  <button disabled type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">Transfer</button>
+                </div>
+                <button v-else type="button" class="btn btn-primary mt-5" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"> Transfer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </main>
+
+
+    <footer>
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+          <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+        </g>
+      </svg>
+    </footer>
+    <div class="" style="background-color: #fff;">
+      <h3>&copy;Brandon Wasilewicz 2022</h3>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./assets/js/transfer.js"></script>
+</body>
+
+</html>

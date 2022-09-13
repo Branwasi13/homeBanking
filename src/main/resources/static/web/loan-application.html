@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tranfers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/loan-aplication.css">
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <nav class="navbar navbar-expand-xl bg-light">
+        <div class="">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse d-xl-flex justify-content-xl-evenly align-items-xl-center" id="navbarNav">
+          <div class="col-2">
+            <a class="navbar-brand mx-lg-5" href="#"><img class="logo-img" src="./assets/img/mindhu_brothers.png"
+                alt=""></a>
+          </div>
+          <ul class="navbar-nav navbarItems col-8 d-xl-flex justify-content-xl-evenly align-items-xl-center">
+            <li class="nav-item ms-xl-5">
+              <a class="nav-hover" aria-current="page" href="./transfers.html"><i
+                  class="bi bi-arrow-left-right pe-1"></i>Transfers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-hover" href="./accounts.html"><i class="bi bi-wallet2 pe-1"></i>accounts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-hover" href="./cards.html"><i class="bi bi-credit-card pe-1"></i>cards</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-hover me-lg-5" href="./postnet.html"><i class="bi bi-currency-dollar pe-1"></i>postnet</a>
+            </li>
+          </ul>
+          <div class="col-2">
+            <div class="d-flex float-xl-end align-items-xl-center">
+              <div class="dropdown-center me-xl-4">
+                <a class=" bg-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i type="button" class="position-relative bi bi-bell bell">
+                  </i>
+                </a>
+                <ul class="dropdown-menu notification dropdown-menu-xl-end">
+                  <li><a class="dropdown-item" href="#">
+                      you don't have any notification</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-center me-xl-5">
+                <a class=" bg-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img v-if="client.firstName == 'Melba'" class="profile"
+                    src="https://pbs.twimg.com/profile_images/1337757611698032641/DBFJ-khl_400x400.jpg" alt="">
+                  <img v-else class="profile"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    alt="">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-xl-end">
+                  <li @click="logOut"><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right pe-1"></i>Sing
+                      Out</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="w-100 accountBackground d-flex text-center align-items-center">
+        <div class="container">
+          <h2>Loan Aplication</h2>
+        </div>
+      </div>
+      <div class="container mt-4">
+        <div class="d-flex justify-content-center align-items-center mb-4">
+          <div class="accordion col-md-6 mx-2" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Hipotecario
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>MAX AMOUNT: 500.000</strong>
+                  <h4>Interest: 35%</h4>
+                  <p>A mortgage loan or simply mortgage is a loan used either by purchasers
+                    of real property to raise funds to buy real estate, or alternatively by existing property owners to
+                    raise
+                    funds for any purpose while putting a lien on the property being mortgaged.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Personal
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>MAX AMOUNT: 100.000</strong>
+                  <h4>Interest: 30%</h4>
+                  <p>
+                    A personal loan, as opposed to a commercial or
+                    business loan, is a loan to an individual for his or her own use. This type of loan is smaller than
+                    a
+                    mortgage and is typically used to purchase a car, renovate the home or pay for a vacation..
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Automotriz
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>MAX AMOUNT: 300.000</strong>
+                  <h4>Interest: 15%</h4>
+                  <p>
+                    A car loan is a sum of money a consumer borrows in order to purchase a car. In most cases when
+                    purchasing a car, a borrower will specifically apply for a car loan; however, a consumer can also
+                    use a
+                    personal loan for the same purpose.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-50 col-md-6">
+            <img
+              src="https://a57.foxnews.com/static.foxbusiness.com/foxbusiness.com/content/uploads/2021/05/931/506/Credible-places-to-get-personal-loans-iStock-1203814636.jpg?ve=1&tl=1"
+              class="img-fluid rounded" alt="loan">
+          </div>
+        </div>
+
+        <div class="row align-items-center justify-content-center">
+          <div class="mb-4 col-12 text-center">
+            <h2>Confirm order and pay</h2>
+            <span>please make the payment, after that you can enjoy all the features and benefits.</span>
+          </div>
+          <div class="d-md-flex flex-wrap justify-content-center align-items-center">
+            <div class="col-md-6">
+              <div class="p-3 w-75">
+                <h6 class="text-uppercase">Loan details</h6>
+                <div>
+                  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="loanId">
+                    <option v-for="loan in loans" :value="loan.id">{{loan.name}}</option>
+                  </select>
+
+                  <select class="form-select form-select-lg mb-3 mt-3" aria-label=".form-select-lg example"
+                    v-if="loanId" v-model="loanPays">
+                    <option v-for="payment in loans.filter(l=>l.id == loanId)[0].payments" :value="payment">{{payment}}
+                    </option>
+                  </select>
+
+                  <select v-else class="form-select form-select-lg mb-3 mt-3" aria-label="Disabled select example"
+                    disabled>
+                    <option selected>select payment</option>
+                  </select>
+                  
+                  <div class="mb-3">
+                    <input v-model="amount" type="number" class="form-control" placeholder="$">
+                  </div>
+
+                  <select v-model="accountDestiny" class="form-select form-select-lg mb-3 mt-3"
+                    aria-label=".form-select-lg example">
+                    <option v-for="account in accounts" :value="account.number">{{account.number}}</option>
+                  </select>
+                </div>
+                <div class="text-center pb-2">
+                  <div class="mt-3 text-center"
+                    v-if="loanId == '' || loanPays == '' || accountDestiny == '' || amount <= 0" >
+                    <h6 class="alert alert-danger" role="alert">
+                      enter all the fields to make a payment
+                    </h6>
+                    <button disabled type="button" class="btn btn-primary"  @click="loanPetition">Transfer</button>
+                  </div>
+                  <button v-else type="button" class="btn btn-primary mt-5" @click="loanPetition"> Transfer</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="text-bg-warning  p-3 text-white mb-3 rounded">
+                <span class="text-dark fw-semibold">You have to pay</span>
+                <div class="mb-3">
+                  <h1 class="text-white fw-bold">${{interest}}</h1>
+                  <h3 class="text-white fw-bold">u/payments: ${{Math.round((amount * 1.20) / loanPays)}}</h3>
+                </div>
+                <p class="text-dark fw-semibold">Enjoy all the features and perk after you complete the payment
+                  Know all the features
+                  100% Guaranteed support and update for the next 5 years.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+
+    <footer>
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+          <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+        </g>
+      </svg>
+      <div class="" style="background-color: #fff;">
+        <h3>&copy;Brandon Wasilewicz 2022</h3>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./assets/js/loan-application.js"></script>
+</body>
+
+</html>

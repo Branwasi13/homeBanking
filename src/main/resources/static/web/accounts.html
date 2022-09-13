@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accounts</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/accounts.css">
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <nav class="navbar navbar-expand-xl bg-light">
+        <div class="">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse d-xl-flex justify-content-xl-evenly align-items-xl-center" id="navbarNav">
+          <div class="col-2">
+            <a class="navbar-brand mx-lg-5" href="#"><img class="logo-img" src="./assets/img/mindhu_brothers.png"
+                alt=""></a>
+          </div>
+          <ul class="navbar-nav navbarItems col-8 d-xl-flex justify-content-xl-evenly align-items-xl-center">
+            <li class="nav-item ms-xl-5">
+              <a class="nav-hover" aria-current="page" href="./transfers.html"><i
+                  class="bi bi-arrow-left-right pe-1"></i>Transfers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-hover" href="#"><i class="bi bi-wallet2 pe-1"></i>accounts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-hover" href="./cards.html"><i class="bi bi-credit-card pe-1"></i>cards</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-hover me-lg-5" href="./postnet.html"><i class="bi bi-currency-dollar pe-1"></i>postnet</a>
+            </li>
+          </ul>
+          <div class="col-2">
+            <div class="d-flex float-xl-end align-items-xl-center">
+              <div class="dropdown-center me-xl-4">
+                <a class=" bg-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i type="button" class="position-relative bi bi-bell bell">
+                  </i>
+                </a>
+                <ul class="dropdown-menu notification dropdown-menu-xl-end">
+                  <li><a class="dropdown-item" href="#">
+                      you don't have any notification</a></li>
+                </ul>
+              </div>
+              <div class="dropdown-center me-xl-5">
+                <a class=" bg-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img v-if="client.firstName == 'Melba'" class="profile"
+                    src="https://pbs.twimg.com/profile_images/1337757611698032641/DBFJ-khl_400x400.jpg" alt="">
+                  <img v-else class="profile"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    alt="">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-xl-end">
+                  <li @click="logOut"><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right pe-1"></i>Sing
+                      Out</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Account details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <label for="SAVING"><input type="radio" name="type" v-model="accountType" value="SAVING"
+                  id="SAVING">Saving</label>
+              <label class="mx-2" for="CURRENT"><input type="radio" name="type" v-model="accountType" value="CURRENT"
+                  id="CURRENT">Current</label>
+            </div>
+            <p>which account type do you prefer?</p>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+              <button class="btn btn-primary" @click="newAccount">yes, create new account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-100 accountBackground d-flex text-center align-items-center">
+        <div class="container">
+          <h2 class="fw-bold">Welcome, {{client.firstName}} {{client.lastName}}!</h2>
+          <h5 v-if="client.firstName == 'Melba'">Total Balance: <span class="text-light fw-bold">${{totalBalance}}</span></h5>
+          <h5 v-else>Total Balance: <span class="text-light fw-bold">${{totalAccountsBalance}}</span></h5>
+          <div>
+            <div class="mt-4">
+              <a class="bn1 mx-md-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add account</a>
+              <a class="bn1 mx-md-4" @click="applyLoan">Apply for a loan</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div>
+          <div>
+            <div>
+              <h2 class="text-center">Accounts</h2>
+            </div>
+            <div class="d-flex flex-wrap flex-md-nowrap justify-content-around">
+              <div class="data-card" v-for="account in accounts">
+                <button  type="button" class="btn-close" @Click="deleteAccount(account.id)" aria-label="Close"></button>     
+                <h3>${{account.balance}}</h3>
+                <h4>{{account.number}}</h4>
+                <p>Type: {{account.accountType}}</p>
+                <p>Creation date: {{newDate(account.creationDate)}}</p>
+                <a :href="'./account.html?id='+account.id" class="link-text">
+                  View Transactions
+                </a>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <h2 class="text-center">Loans</h2>
+          <div class="d-flex flex-wrap justify-content-around">
+            <!-- <div class="graficTotalBalance col-md-6">
+              <canvas v-show="accountsBalancePercentage > 0 && paymentsBalancePercentage > 0" id="miChart"></canvas>
+              </div>-->
+              <div v-if="loans.length != 0" class="card text-bg-warning mb-3 shadow-lg" v-for="loan in loans">
+                <div class="card-header text-center fw-bold">{{loan.name}}</div>
+                <div class="card-body">
+                  <h5 class="card-title">amount payable: ${{loan.amount}}</h5>
+                  <h6 class="card-title">payments: {{loan.payments}}</h6>
+                  <p class="card-text ">The lack of payment at the expiration of each installment, produces the default of full right.</p>
+                </div>
+              </div>
+              <h3 v-if="loans.length == 0" class="text-center">you do not have any associated loan</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer>
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g class="parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+        <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+      </g>
+    </svg>
+    <div class="" style="background-color: #fff;">
+      <h3>&copy;Brandon Wasilewicz 2022</h3>
+    </div>
+  </footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./assets/js/accounts.js"></script>
+</body>
+
+</html>

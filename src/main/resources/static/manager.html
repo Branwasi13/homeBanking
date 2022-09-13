@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>backEnd</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./web/assets/css/style.css">
+</head>
+
+<body>
+  <main id="app">
+    <button type="button" class="btn btn-primary" @click="logOut">Log out</button>
+    <div class="container">
+      <h2 class="text-center">create client</h2>
+      <form @submit.prevent="addClient">
+        <div class="mb-3">
+          <label for="firstName" class="form-label">Name</label>
+          <input type="text" class="form-control" required id="firstName" aria-describedby="emailHelp"
+            v-model="firstName">
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last name</label>
+          <input type="text" class="form-control" required id="lastName" aria-describedby="emailHelp"
+            v-model="lastName">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" class="form-control" required id="exampleInputEmail1" aria-describedby="emailHelp"
+            v-model="email">
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <button class="btn btn-primary">add client</button>
+      </form>
+
+      <table class="mt-1 table table-success table-striped-columns">
+        <thead>
+          <th>Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+        </thead>
+        <tbody>
+          <tr v-for="client in clients">
+            <td>{{client.firstName}}</td>
+            <td>{{client.lastName}}</td>
+            <td>{{client.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container">
+
+      <h2 class="text-center">create loan</h2>
+      <form @submit.prevent="addLoan">
+        <div class="mb-3">
+          <label for="loanName" class="form-label">loan name</label>
+          <input type="text" class="form-control" required id="loanName" aria-describedby="emailHelp"
+            v-model="loanName">
+        </div>
+        <div class="mb-3">
+          <label for="maxAmount" class="form-label">Max Amount</label>
+          <input type="number" class="form-control" required id="maxAmount" aria-describedby="emailHelp"
+            v-model="maxAmount">
+        </div>
+        <div class="mb-3">
+          <label for="payments" class="form-label">Payments</label>
+          <input type="text" class="form-control" required id="payments" aria-describedby="emailHelp"
+            v-model="payments">
+        </div>
+        <button class="btn btn-primary">add loan</button>
+      </form>
+
+      <table class="mt-1 table table-dark table-striped">
+        <thead>
+          <th>loan name</th>
+          <th>Max amount</th>
+          <th>payments</th>
+        </thead>
+        <tbody>
+          <tr v-for="loan in loans">
+            <td>{{loan.name}}</td>
+            <td>{{loan.maxAmount}}</td>
+            <td>{{loan.payments}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./manager.js"></script>
+</body>
+
+</html>

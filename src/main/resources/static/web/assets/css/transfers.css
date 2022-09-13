@@ -1,0 +1,213 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+body{
+    background-color: rgba(232, 233, 241, 0.897);
+}
+
+table{
+    background-color: whitesmoke;
+    border-radius: 7px;
+    height: 5rem;
+    scroll-behavior: auto;
+}
+
+main{
+    min-height: 80vh;
+}
+footer{
+    height: 10vh;
+}
+nav{
+    text-decoration: none;
+}
+a{
+    text-decoration: none;
+}
+h3{
+    margin: 0;
+}
+
+.accountBackground{    
+    background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
+    height: 15rem;
+    
+}
+/* transaction */
+.transactionMain{
+    height: 35rem;
+}
+
+/* nav */
+.nav-hover{
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+    vertical-align: top;
+    font-size: 1.25rem;
+}
+  
+.nav-hover::before,
+.nav-hover::after {
+   content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+.nav-hover::before {
+    background-color: orangered;
+    height: 2px;
+    bottom: 0;
+    transform-origin: 100% 50%;
+    transform: scaleX(0);
+    transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.nav-hover::after {
+    content: attr(data-replace);
+    height: 100%;
+    top: 0;
+    transform-origin: 100% 50%;
+    transform: translate3d(200%, 0, 0);
+    transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+    color: orangered;
+}
+  
+.nav-hover:hover::before {
+    transform-origin: 0% 50%;
+    transform: scaleX(1);
+}
+.nav-hover:hover::after {
+    transform: translate3d(0, 0, 0);
+}
+.nav-hover:hover{
+    color: orangered;
+}
+.bell{
+    font-size: 1.5rem;
+    color: black;
+}
+.logo-img{
+    width: 15rem;
+}
+
+.profile{
+    width: 2.5rem;
+    border-radius: 50%;
+}
+
+.card{
+    width:400px;
+    background-color:#fff;
+    border:none;border-radius: 12px;
+}
+label.radio{
+    cursor: pointer;
+    width: 100%
+}
+label.radio input{position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+label.radio span{
+    padding: 7px 14px;
+    border: 2px solid #eee;
+    display: inline-block;
+    color: black;
+    border-radius: 10px;
+    width: 100%;
+    height: 48px;
+    line-height: 27px;
+}
+label.radio input:checked+span{
+    border-color: black;
+    background-color: orangered;
+    color: #fff;
+    border-radius: 9px;
+    height: 48px;
+    line-height: 27px;
+}
+.form-control{
+    margin-top: 10px;
+    height: 48px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+}
+.form-control:focus{
+    box-shadow: none;
+    border: 2px solid #039BE5;
+}
+.agree-text{
+    font-size: 12px;
+}
+.terms{font-size: 12px;
+    text-decoration: none;
+    color: #039BE5;
+}
+.confirm-button{height: 50px;
+    border-radius: 10px;
+}
+
+/* wave */
+.waves {
+    position:relative;
+    width: 100%;
+    height: 10vh;
+}
+  
+.parallax > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+}
+.parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+@keyframes move-forever {
+    0% {
+     transform: translate3d(-90px,0,0);
+    }
+    100% { 
+      transform: translate3d(85px,0,0);
+    }
+}
+  /*Shrinking for mobile*/
+@media (max-width: 768px) {
+    .waves {
+      height:40px;
+      min-height:40px;
+    }
+}
+
+@media(max-width:1000px){
+    main{
+        height: auto;
+    }
+
+    header{
+        height: auto;
+    }
+
+    footer{
+        height: auto;
+    }
+}
