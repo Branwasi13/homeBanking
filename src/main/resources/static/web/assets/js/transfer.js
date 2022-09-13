@@ -29,8 +29,29 @@ createApp({
                 this.accounts = this.client.accounts
         },
         logOut(){
-            axios.post('/api/logout')
-            .then(location.href = "./index.html")
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Are you sure you want to close session?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Log out!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire(
+                    'succes',
+                    'The session has been successfully closed',
+                    'success'
+                  )
+                  setTimeout(() => { 
+                        axios.post('/api/logout')
+                        .then(location.href = "./index.html")
+                    }, 1500)
+                  
+                }
+              })
+            
         },
         newTranfer(){
                 axios.post('/api/clients/current/accounts/transactions', `amount=${this.amount}&description=${this.description}&originAccount=${this.originAccount}&destinyAccount=${this.destinyAccount}`,

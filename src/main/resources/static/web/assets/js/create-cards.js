@@ -32,8 +32,29 @@ createApp({
             return  new Date(creationDate).toLocaleDateString('es-AR', {month: '2-digit', year: '2-digit'})
         },
         logOut(){
-            axios.post('/api/logout')
-            .then(location.href = "./index.html")
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Are you sure you want to close session?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Log out!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire(
+                    'succes',
+                    'The session has been successfully closed',
+                    'success'
+                  )
+                  setTimeout(() => { 
+                        axios.post('/api/logout')
+                        .then(location.href = "./index.html")
+                    }, 1500)
+                  
+                }
+              })
+            
         },
         typeCards(){
             this.cards.forEach(type =>{
