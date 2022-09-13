@@ -24,8 +24,6 @@ createApp({
         axios.get("/api/clients/current")
             .then(response => {
                 this.allData(response)
-                this.fromDate =  
-                this.toDate =  new Date(this.toDate).toISOString()
             })
             .catch((error) =>{
                 console.log(error);
