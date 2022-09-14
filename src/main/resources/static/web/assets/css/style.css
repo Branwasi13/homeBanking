@@ -356,16 +356,17 @@ h1{
 }
 
 .card__space-75 {
-    width: 75%;
+    width: 70%;
     float: left;
 }
 
 .card__space-25 {
-    width: 25%;
+    width: 30%;
     float: left;
 }
 
 .card__label {
+    text-align: center;
     font-size: 10px;
     text-transform: uppercase;
     color: black;

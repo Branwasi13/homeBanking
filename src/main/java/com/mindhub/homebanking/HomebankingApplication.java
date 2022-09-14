@@ -46,9 +46,9 @@ public class HomebankingApplication {
 			ClientLoan loan2 = new ClientLoan(50000.00,12,client1,Personal);
 			ClientLoan loan3 = new ClientLoan(100000.00,24,client2,Personal);
 			ClientLoan loan4 = new ClientLoan(200000.00,36,client2,Automotriz);
-			Card card1 = new Card(client1,(client1.toString()),CardType.DEBIT, CardColor.GOLD,"5030-3695-5876-6231",982,LocalDateTime.now(),LocalDateTime.now(),true,account1);
+			Card card1 = new Card(client1,(client1.toString()),CardType.DEBIT, CardColor.GOLD,"5030-3695-5876-6231",982,LocalDateTime.now(),LocalDateTime.now().plusYears(5),true,account1);
 			Card card2 = new Card(client1,(client1.toString()),CardType.CREDIT, CardColor.TITANIUM,"3103-5785-7892-4537",582,LocalDateTime.now(),LocalDateTime.now().plusYears(7),true,account2);
-			Card card3 = new Card(client2,(client2.toString()),CardType.DEBIT, CardColor.SILVER,"4566-7869-4532-2305",369,LocalDateTime.now(),LocalDateTime.now().plusYears(5),true,account3);
+			Card card3 = new Card(client2,(client2.toString()),CardType.DEBIT, CardColor.SILVER,"4566-7869-4532-2305",369,LocalDateTime.now(),LocalDateTime.now(),true,account3);
 
 			client1.addAccount(account2);
 

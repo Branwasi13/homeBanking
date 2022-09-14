@@ -112,4 +112,12 @@ public class Account {
     public void setAccountState(Boolean accountState) {
         this.accountState = accountState;
     }
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
 }

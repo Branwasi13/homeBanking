@@ -33,78 +33,65 @@ createApp({
             
     },
     methods: {
-        allData(response){
-                this.client = response.data 
-                this.accounts = this.client.accounts
-        },
-        getLoans(response){
-                this.loans = response.data
-        },
-        newDate(creationDate){ 
-            return  new Date(creationDate).toLocaleDateString('es-AR', {month: '2-digit', year: '2-digit'})
-        },
-        logOut(){
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "Are you sure you want to close session?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Log out!'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  Swal.fire(
-                    'succes',
-                    'The session has been successfully closed',
-                    'success'
-                  )
-                  setTimeout(() => { 
-                        axios.post('/api/logout')
-                        .then(location.href = "./index.html")
-                    }, 1500)
-                  
-                }
-              })
-            
-        },
-        loanPetition(){
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "Are you sure to apply for this loan?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, apply loan!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                        axios.post('/api/loans',
-                    {
-                        "id":`${this.loanId}`,
-                        "amount":`${this.amount}`,
-                        "payments":`${this.loanPays}`,
-                        "destinyAccount":`${this.accountDestiny}`
-                    })
-                    .then(() =>
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'your loan has been credited',
-                            showConfirmButton: false,
-                            timer:1500
-                        })
+            allData(response){
+                    this.client = response.data 
+                    this.accounts = this.client.accounts
+            },
+            getLoans(response){
+                    this.loans = response.data
+            },
+            newDate(creationDate){ 
+                return  new Date(creationDate).toLocaleDateString('es-AR', {month: '2-digit', year: '2-digit'})
+            },
+            logOut(){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Are you sure you want to close session?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Log out!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    Swal.fire(
+                        'succes',
+                        'The session has been successfully closed',
+                        'success'
                     )
-                    .catch((error) => {
-                        Swal.fire({
-                            icon: 'error',
-                            showConfirmButton: true,
-                            text:error.response.data
+                    setTimeout(() => { 
+                            axios.post('/api/logout')
+                            .then(location.href = "./index.html")
+                        }, 1500)
+                    
+                    }
+                })
+                
+            },
+            loanPetition(){
+                        axios.post('/api/loans',
+                        {
+                            "id":`${this.loanId}`,
+                            "amount":`${this.amount}`,
+                            "payments":`${this.loanPays}`,
+                            "destinyAccount":`${this.accountDestiny}`
                         })
-                    });
-                }
-            })
-            
-        },
+                        .then(() =>{
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'your loan has been credited',
+                                showConfirmButton: false,
+                                timer:1500
+                            })
+                        })
+                        .catch((error) => {
+                            Swal.fire({
+                                icon: 'error',
+                                showConfirmButton: true,
+                                text:error.response.data
+                            })
+                        });
+            }
     },
     computed:{
         interest(){

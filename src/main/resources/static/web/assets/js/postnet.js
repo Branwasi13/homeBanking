@@ -68,13 +68,12 @@ const app = Vue.
                     "description":`${this.description}`
                 })
                 .then(() =>
-                    
-                        Swal.fire(
-                            'succes',
-                            'your payment has been send',
-                            'success',
-                            setTimeout(() => { location.href = "/web/accounts.html"}, 1000)
-                        )
+                    Swal.fire(
+                        'succes',
+                        'your payment has been send',
+                        'success',
+                        setTimeout(() => { location.href = "/web/accounts.html"}, 1000)
+                    )
                     
                 )
                 .catch(error =>
@@ -82,7 +81,7 @@ const app = Vue.
                         icon: 'error',
                         title: 'Oops...',
                         text: error.response.data,
-                    }),
+                    })
                 )
             }
             

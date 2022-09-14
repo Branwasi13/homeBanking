@@ -22,8 +22,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -93,36 +98,50 @@ public class TransactionController {
 
     @Transactional
     @PostMapping("/api/clients/current/transactions/payments")
-    public ResponseEntity<Object> newPayments(Authentication authentication, @RequestBody PaymentsDTO paymentsDTO){
-        Client client = clientService.getClientByEmail(authentication.getName());
-        Card card = cardService.getCardByNumber(paymentsDTO.getNumber());
-        Account accountOrigin = card.getAccount();
+    public ResponseEntity<Object> newPayments(@RequestBody PaymentsDTO paymentsDTO){
+
         Card cardNumber = cardService.getCardByNumber(paymentsDTO.getNumber());
-        if (client == null){
-            return new ResponseEntity<>("client does not exist", HttpStatus.FORBIDDEN);
-        }
-        if (card == null){
-            return new ResponseEntity<>("card does not exist", HttpStatus.FORBIDDEN);
-        }
-        if(!card.isStateOfCards()){
-            return new ResponseEntity<>("disabled card", HttpStatus.FORBIDDEN);
+
+        if (paymentsDTO.getNumber().isEmpty()) {
+            return new ResponseEntity<>("the card number field is empty", HttpStatus.FORBIDDEN);
         }
         if(cardNumber == null){
-            return new ResponseEntity<>("card number does not exist", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The card number entered is not valid", HttpStatus.FORBIDDEN);
+        }
+        if(paymentsDTO.getCardHolder().isEmpty()){
+            return new ResponseEntity<>("missing card name", HttpStatus.FORBIDDEN);
+        }
+        if(!Objects.equals(paymentsDTO.getCardHolder(), cardNumber.getCardHolder()) ){
+            return new ResponseEntity<>("the card holder and the card number not match", HttpStatus.FORBIDDEN);
+        }
+        if(!Objects.equals(paymentsDTO.getCvv(), cardNumber.getCvv())){
+            return new ResponseEntity<>("the card number and the cvv do not match", HttpStatus.FORBIDDEN);
         }
         if (paymentsDTO.getAmount() <= 0 ){
             return new ResponseEntity<>("invalid amount", HttpStatus.FORBIDDEN);
         }
+
+
+
+
+
+        LocalDateTime myDate = cardNumber.getFromDate();
+        String cardDate = myDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        if (!Objects.equals(paymentsDTO.getThruDate(), cardDate)){
+            return new ResponseEntity<>("The date does not match an associated card", HttpStatus.FORBIDDEN);
+        }
+
+        Account accountOrigin = cardNumber.getAccount();
         if(accountOrigin == null){
             return new ResponseEntity<>("account does not exist", HttpStatus.FORBIDDEN);
         }
         if (paymentsDTO.getAmount() > accountOrigin.getBalance()){
-            return new ResponseEntity<>("Amount is invalid", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("you have no money in the account", HttpStatus.FORBIDDEN);
         }
 
         transactionService.saveTransaction(new Transaction(TransactionType.DEBIT,- paymentsDTO.getAmount(),paymentsDTO.getDescription(),LocalDateTime.now(),accountOrigin));
         accountOrigin.setBalance(accountOrigin.getBalance() - paymentsDTO.getAmount());
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("success",HttpStatus.CREATED);
     }
 
     @PostMapping("/api/transactions/filtered")

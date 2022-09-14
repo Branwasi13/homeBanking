@@ -105,7 +105,6 @@ createApp({
                         setTimeout(() => { location.href = "/web/accounts.html" }, 1500)
                     )
                 )
-
                 .catch(error =>
                     Swal.fire({
                         icon: 'error',
@@ -118,37 +117,26 @@ createApp({
             location.href = "/web/loan-application.html"
         },
         deleteAccount(id){
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "Are you sure you want to delete this account?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    axios.patch('/api/clients/current/accounts/delete',`accountId=${id}`)
-                    .then(
-                        Swal.fire(
-                            'succes',
-                            'This account has been successfully deleted',
-                            'success'
-                        ),
-                        setTimeout(() => {(location.href = "/web/accounts.html")}, 1500)
-                    )
-                    .catch((error) => {
-                        Swal.fire({
-                            icon: 'error',
-                            timer:2500,
-                            showConfirmButton: false,
-                            text:error.response.data
-                        })
-                    });
+            axios.patch('/api/clients/current/accounts/delete',`accountId=${id}`,
+            {headers:{'content-type':'application/x-www-form-urlencoded'}})
+            .then(
+                Swal.fire(
+                    'succes',
+                    'This account has been successfully deleted',
+                    'success'
+                ),
+                setTimeout(() => {(location.href = "/web/accounts.html")}, 2000)
+            )
+            .catch((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    timer:2500,
+                    showConfirmButton: false,
+                    text:error.response.data
+                })
+            });
                   
-                }
-            })
-            
+                 
         }
     },
 }).mount('#app');
