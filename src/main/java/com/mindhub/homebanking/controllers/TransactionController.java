@@ -26,6 +26,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
@@ -102,6 +103,8 @@ public class TransactionController {
 
         Card cardNumber = cardService.getCardByNumber(paymentsDTO.getNumber());
 
+
+
         if (paymentsDTO.getNumber().isEmpty()) {
             return new ResponseEntity<>("the card number field is empty", HttpStatus.FORBIDDEN);
         }
@@ -121,14 +124,15 @@ public class TransactionController {
             return new ResponseEntity<>("invalid amount", HttpStatus.FORBIDDEN);
         }
 
+        if (paymentsDTO.getThruDate().isEmpty()){
+            return new ResponseEntity<>("the date is empty", HttpStatus.FORBIDDEN);
+        }
 
-
-
-
-        LocalDateTime myDate = cardNumber.getFromDate();
-        String cardDate = myDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
-        if (!Objects.equals(paymentsDTO.getThruDate(), cardDate)){
-            return new ResponseEntity<>("The date does not match an associated card", HttpStatus.FORBIDDEN);
+        int dateYear = cardNumber.getFromDate().getYear();
+        int dateMonth = cardNumber.getFromDate().getMonthValue();
+        String myDate = dateMonth +"/"+ dateYear;
+        if (!myDate.equals(paymentsDTO.getThruDate())){
+            return new ResponseEntity<>("the dates do not belong to an associated card", HttpStatus.FORBIDDEN);
         }
 
         Account accountOrigin = cardNumber.getAccount();

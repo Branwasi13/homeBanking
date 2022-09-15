@@ -50,12 +50,20 @@ public class LoanController {
 
         Loan loanId = loanService.findLoanById(loanApplicationDTO.getId());
 
-        if(loanApplicationDTO.getAmount() <= 0 || loanApplicationDTO.getPayments() < 1 || loanApplicationDTO.getDestinyAccount().isEmpty()){
+        if(loanApplicationDTO.getAmount().isNaN() || loanApplicationDTO.getPayments() == null || loanApplicationDTO.getDestinyAccount().isEmpty()){
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+        }
+
+        if (loanApplicationDTO.getAmount() <= 0) {
+            return new ResponseEntity<>("Missing data Amount", HttpStatus.FORBIDDEN);
         }
 
         if(destinyAccount == null){
             return new ResponseEntity<>("account dosen't exist", HttpStatus.FORBIDDEN);
+        }
+
+        if (loanId == null) {
+            return new ResponseEntity<>("The type of loan does not exist", HttpStatus.FORBIDDEN);
         }
 
         if(loanApplicationDTO.getAmount() > loanId.getMaxAmount()){
@@ -63,14 +71,10 @@ public class LoanController {
         }
 
         if(!loanId.getPayments().contains(loanApplicationDTO.getPayments())){
-            return new ResponseEntity<>("Payments dosent allowed", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Payments doesnt allowed", HttpStatus.FORBIDDEN);
         }
 
-        if(accountService.findByNumber(loanApplicationDTO.getDestinyAccount()) == null){
-            return new ResponseEntity<>("destiny account dosen't exist", HttpStatus.FORBIDDEN);
-        }
-
-        if(!currentClient.getAccounts().contains(accountService.findByNumber(destinyAccount.getNumber()))){
+        if(!currentClient.getAccounts().contains(destinyAccount)){
             return new ResponseEntity<>("Destiny account dosent match with client user", HttpStatus.FORBIDDEN);
         }
 
@@ -135,7 +139,7 @@ public class LoanController {
         }
         clientLoanService.saveClientLoan(clientLoan);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Loan approved",HttpStatus.CREATED);
     }
 
     @GetMapping("/api/loans")
@@ -147,17 +151,16 @@ public class LoanController {
     public ResponseEntity<String> addAdminLoan (@RequestParam String name,@RequestParam double maxAmount, @RequestParam List<Integer> payments, Authentication authentication){
 
         Client adminAuthentication = clientService.getClientByEmail(authentication.getName());
-
         if(adminAuthentication == null){
             return new ResponseEntity<>("missing admin authentication", HttpStatus.FORBIDDEN);
         }
 
-        if(name.isEmpty()){
-            return new ResponseEntity<>("missing name of loan", HttpStatus.FORBIDDEN);
+        if(!adminAuthentication.getEmail().contains("@admin.com")){
+            return new ResponseEntity<>("you do not have the admin role", HttpStatus.FORBIDDEN);
         }
 
-        if(maxAmount <= 0){
-            return new ResponseEntity<>("missing max amount of loan", HttpStatus.FORBIDDEN);
+        if(name.isEmpty() || maxAmount <= 0 || payments.isEmpty()){
+            return new ResponseEntity<>("Missing Data",HttpStatus.FORBIDDEN);
         }
 
         if(loanService.getAllLoans().stream().map(x -> x.getName()).collect(Collectors.toSet()).contains(name)){

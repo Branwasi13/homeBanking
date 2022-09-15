@@ -58,8 +58,8 @@ createApp({
                 {headers: {'content-type': 'application/x-www-form-urlencoded'}})
                 .then(
                     Swal.fire(
-                        'Good job!',
-                        'You clicked the button!',
+                        'Succes',
+                        'your money has been credited!',
                         'success',
                         setTimeout(() => { location.href = "/web/transfers.html"}, 1000)
                     )

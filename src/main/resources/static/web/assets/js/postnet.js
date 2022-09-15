@@ -59,12 +59,11 @@ const app = Vue.
             pay(){
                 axios.post('/api/clients/current/transactions/payments',
                 {
-                    "id":`${this.card}`,
                     "cardHolder":`${this.cardHolder}`,
                     "number":`${this.cardNumber}`,
                     "amount":`${this.amount}`,
                     "cvv":`${this.cvv}`,
-                    "fromDate":`${this.date}`,
+                    "thruDate":`${this.date}`,
                     "description":`${this.description}`
                 })
                 .then(() =>
@@ -72,7 +71,7 @@ const app = Vue.
                         'succes',
                         'your payment has been send',
                         'success',
-                        setTimeout(() => { location.href = "/web/accounts.html"}, 1000)
+                        setTimeout(() => { location.href = "/web/accounts.html"}, 2500)
                     )
                     
                 )
