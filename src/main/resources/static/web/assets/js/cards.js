@@ -30,7 +30,7 @@ createApp({
                 this.date = new Date().toISOString()
         },
         newDate(creationDate){ 
-            return  new Date(creationDate).toLocaleDateString()
+            return  new Date(creationDate).toLocaleDateString('en-US', {month:"2-digit", year:"2-digit"})
         },
         logOut(){
             Swal.fire({

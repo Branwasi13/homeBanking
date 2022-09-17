@@ -103,8 +103,6 @@ public class TransactionController {
 
         Card cardNumber = cardService.getCardByNumber(paymentsDTO.getNumber());
 
-
-
         if (paymentsDTO.getNumber().isEmpty()) {
             return new ResponseEntity<>("the card number field is empty", HttpStatus.FORBIDDEN);
         }
@@ -130,7 +128,12 @@ public class TransactionController {
 
         int dateYear = cardNumber.getFromDate().getYear();
         int dateMonth = cardNumber.getFromDate().getMonthValue();
-        String myDate = dateMonth +"/"+ dateYear;
+        String myDate;
+        if(dateMonth < 10){
+            myDate = "0" + dateMonth + "/" + dateYear;
+        }else {
+            myDate = dateMonth + "/" + dateYear;
+        }
         if (!myDate.equals(paymentsDTO.getThruDate())){
             return new ResponseEntity<>("the dates do not belong to an associated card", HttpStatus.FORBIDDEN);
         }
