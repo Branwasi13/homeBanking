@@ -31,3 +31,6 @@ Principales funcionalidades:⁣
 
 8) Sistema de pagos (PostNet).⁣
 
+usario de prueba:
+email: melba@mindhub.com
+contraseña: melba
