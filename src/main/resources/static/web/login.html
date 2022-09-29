@@ -14,91 +14,81 @@
 </head>
 
 <body>
-    <div id="app">
-        <div class="container">
-            <input type="checkbox" id="flip">
-            <div class="cover">
-                <div class="front">
-                    <img src="https://1.bp.blogspot.com/-LPnzywb2Rro/YXiG2lfMC5I/AAAAAAAACLo/iWX5vUlmBosiifN5moRPYko8St4julW2ACLcBGAsYHQ/s800/alphatestersanimation2.gif"
-                        alt="">
-                    <div class="text">
-                    </div>
-                </div>
-                <div class="back">
-                    <img class="backImg" src="" alt="">
-                    <div class="text">
-                        <span class="text-1">Complete miles of journey <br> with one step</span>
-                        <span class="text-2">Let's get started</span>
-                    </div>
-                </div>
-            </div>
-            <div class="forms">
-                <div class="form-content">
-                    <div class="login-form">
-                        <div class="title">Login</div>
-                        <form action="#" @submit.prevent="login">
-                            <div class="input-boxes">
-                                <div class="input-box">
-                                    <i class="fas fa-envelope"></i>
-                                    <input v-model="emailLogin" type="email" placeholder="Enter your email" required>
-                                </div>
-                                <div class="input-box">
-                                    <i class="fas fa-lock"></i>
-                                    <input v-model="pwdLogin" type="password" placeholder="Enter your password"
-                                        required>
-                                </div>
-                                <div class="text"><a href="#">Forgot password?</a></div>
-                                <div class="button input-box">
-                                    <input type="submit" value="Login">
-                                </div>
-                                <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup
-                                        now</label>
-                                </div>
-                                <div class="text-center">
-                                    <a href="index.html">Home</a>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                    <div class="signup-form">
-                        <div class="title">Signup</div>
-                        <form action="#" @submit.prevent="register">
-                            <div class="input-boxes">
-                                <div class="input-box">
-                                    <i class="fas fa-user"></i>
-                                    <input v-model="firstName" type="text" placeholder="Enter your First name" required>
-                                </div>
-                                <div class="input-box">
-                                    <i class="fas fa-user"></i>
-                                    <input v-model="lastName" type="text" placeholder="Enter your Last name" required>
-                                </div>
-                                <div class="input-box">
-                                    <i class="fas fa-envelope"></i>
-                                    <input v-model="emailRegister" type="email" placeholder="Enter your email" required>
-                                </div>
-                                <div class="input-box">
-                                    <i class="fas fa-lock"></i>
-                                    <input v-model="pwdRegister" type="password" placeholder="Enter your password"
-                                        required>
-                                </div>
-                                <div class="button input-box">
-                                    <input type="submit" value="Sing up">
-                                </div>
-                                <div class="text sign-up-text">Already have an account? <label for="flip">Login
-                                        now</label>
-                                </div>
-                                <div class="text-center">
-                                    <a href="index.html">Home</a>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="container" id="app" v-cloak>
+        <div class="forms-container">
+          <div class="signin-signup">
+            <form action="#" class="sign-in-form">
+              <h2 class="title">Sign in</h2>
+    
+              <div class="input-field">
+                <i class="fas fa-user"></i>
+                <input type="email" placeholder="Email" v-model="emailLogin">
+              </div>
+              <div class="input-field">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" v-model="pwdLogin" />
+              </div>
+              <input type="button" class="btn" value="Sign in" @click="login">
+              <a class="navbar-brand mt-2 text-center" href="#" id="title"><strong class="font-monospace">MINDHUB |
+                </strong>BROTHERS</a>
+              <p class="text-center">The digital solution for your lifetime savings</p>
+            </form>
+            <form action="#" class="sign-up-form">
+              <h2 class="title">Sign up</h2>
+              <div class="input-field">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="First Name *" v-model="firstName" required />
+              </div>
+              <div class="input-field">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Last Name *" v-model="lastName" />
+              </div>
+              <div class="input-field">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="E-mail *" v-model="emailRegister">
+              </div>
+              <div class="input-field">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password *" v-model="pwdRegister" />
+              </div>
+              <input type="button" class="btn" value="Sign up" @click="register">
+              <a class="navbar-brand mt-2" href="#" id="title"><strong class="font-monospace">MINDHUB |
+                </strong>BROTHERS</a>
+              <p class="text-center">The digital solution for your lifetime savings</p>
+            </form>
+          </div>
         </div>
-    </div>
+    
+        <div class="panels-container">
+          <div class="panel left-panel">
+            <div class="content">
+              <h3>New here ?</h3>
+              <p>
+                Sign up for the best financial options and services in accounts, cards and loans. MHBrothers always near!
+              </p>
+              <button class="btn transparent" id="sign-up-btn">
+                Sign up
+              </button>
+            </div>
+            <div style="width: 400px;"></div>
+    
+          </div>
+          <div class="panel right-panel">
+            <div class="content">
+              <h3>One of us ?</h3>
+              <p>
+                Sign in for the best financial options and services in accounts, cards and loans. MHBrothers always near and
+                taking good care of your savings!
+              </p>
+              <button class="btn transparent" id="sign-in-btn">
+                Sign in
+              </button>
+            </div>
+            <div style="width: 400px;"></div>
+    
+          </div>
+        </div>
+      </div>
 
 
 

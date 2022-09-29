@@ -53,6 +53,10 @@ public class ClientController {
             return new ResponseEntity<>("email already in use", HttpStatus.FORBIDDEN);
         }
 
+        if(password.length() < 8){
+            return new ResponseEntity<>("the password cannot be less than 8 characters", HttpStatus.FORBIDDEN);
+        }
+
         String accountNumber = CardUtils.getAccountNumber();
 
         Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));
@@ -60,6 +64,7 @@ public class ClientController {
         clientService.saveClient(newClient);
 
         accountService.saveAccount(new Account(accountNumber,0.0, LocalDateTime.now(),newClient, AccountType.CURRENT,true));
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
