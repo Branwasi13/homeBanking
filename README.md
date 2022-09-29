@@ -9,7 +9,7 @@ Solicitudes HTTP manejadas con Axios⁣
 Base de Datos SQL H2⁣
 
 ⁣
-Frontend: Javascript con Vue.Js, HTML5, CSS3, chart.js, Bootstrap, SweetAlert 2)⁣
+Frontend: Javascript con Vue.Js, HTML5, CSS3, chart.js, Bootstrap, SweetAlert 2
 
 ⁣
 Principales funcionalidades:⁣
