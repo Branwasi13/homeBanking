@@ -1,7 +1,7 @@
 Desarrollo de WebApp con tecnologías Fullstack:⁣
 
 ⁣
-Backend: JAVA con Spring - Spring Boot (Spring Security, JPA, Rest, JDBC, Test, Mail).⁣
+Backend: JAVA con Spring - Spring Boot (Spring Security, JPA, Rest, JDBC, Test).⁣
 
 ⁣
 Solicitudes HTTP manejadas con Axios⁣
