@@ -1,5 +1,3 @@
-Homebanking para MindHub Brothers Bank
-⁣
 Desarrollo de WebApp con tecnologías Fullstack:⁣
 ⁣
 Backend: JAVA con Spring - Spring Boot (Spring Security, JPA, Rest, JDBC, Test, Mail).⁣
