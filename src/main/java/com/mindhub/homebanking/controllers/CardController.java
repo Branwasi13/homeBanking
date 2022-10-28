@@ -52,7 +52,6 @@ public class CardController {
             return new ResponseEntity<>("for each card you can only select one color", HttpStatus.FORBIDDEN);
         }
 
-
         cardService.saveCard(new Card(clientCard, clientCard.toString(), cardType, cardColor, cardNumber,cardCvv,LocalDateTime.now(), LocalDateTime.now().plusYears(5),true));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -75,9 +74,7 @@ public class CardController {
         }
 
         cardNumber.setStateOfCards(false);
-
         cardService.saveCard(cardNumber);
-
         return new ResponseEntity<>("your card is delete",HttpStatus.CREATED);
     }
 

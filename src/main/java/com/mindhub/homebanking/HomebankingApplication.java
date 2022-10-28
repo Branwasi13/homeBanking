@@ -93,6 +93,8 @@ public class HomebankingApplication {
 
 			Card card3 = new Card(client2,(client2.toString()),CardType.DEBIT, CardColor.SILVER,"4566-7869-4532-2305",369,LocalDateTime.now(),LocalDateTime.now(),true,account3);
 			cardService.saveCard(card3);
+
+
 		};
 	}
 }

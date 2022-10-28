@@ -66,5 +66,51 @@ public class ClientLoan {
         this.payments = payments;
     }
 
+    public static void interestLoan(Loan id, ClientLoan clientLoan){
+        switch (id.getName()){
+            case "Personal":
+                switch (clientLoan.getPayments()){
+                    case 6: clientLoan.setAmount(clientLoan.getAmount() * 1.20);
+                        break;
+                    case 12: clientLoan.setAmount(clientLoan.getAmount() * 1.30);
+                        break;
+                    case 24: clientLoan.setAmount(clientLoan.getAmount() * 1.40);
+                        break;
+                }
+                break;
+            case "Hipotecario":
+                switch (clientLoan.getPayments()){
+                    case 12: clientLoan.setAmount(clientLoan.getAmount() * 1.30);
+                        break;
+                    case 24: clientLoan.setAmount(clientLoan.getAmount() * 1.40);
+                        break;
+                    case 36: clientLoan.setAmount(clientLoan.getAmount() * 1.45);
+                        break;
+                    case 48: clientLoan.setAmount(clientLoan.getAmount() * 1.50);
+                        break;
+                    case 60: clientLoan.setAmount(clientLoan.getAmount() * 1.55);
+                        break;
+                }
+                break;
+            case "Automotriz":
+                switch (clientLoan.getPayments()) {
+                    case 6:
+                        clientLoan.setAmount(clientLoan.getAmount() * 1.20);
+                        break;
+                    case 12:
+                        clientLoan.setAmount(clientLoan.getAmount() * 1.30);
+                        break;
+                    case 24:
+                        clientLoan.setAmount(clientLoan.getAmount() * 1.40);
+                        break;
+                    case 36:
+                        clientLoan.setAmount(clientLoan.getAmount() * 1.45);
+                        break;
+                }
+                break;
+            default:
+                break;
 
+        }
+    }
 }

@@ -28,6 +28,10 @@ public class ClientController {
     @Autowired
     private AccountService accountService;
 
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/api/clients")
     public List<ClientDTO> getClients(){
         return clientService.getAllClients().stream().map(ClientDTO::new).collect(toList());
@@ -38,8 +42,6 @@ public class ClientController {
         return new ClientDTO(clientService.getClientById(id));
     }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/api/clients")
     public ResponseEntity<Object> register(

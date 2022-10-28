@@ -4,8 +4,6 @@ import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.utils.CardUtils;
@@ -24,12 +22,6 @@ import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
 public class AcountsController {
-    @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
-    private ClientRepository clientRepository;
-
     @Autowired
     private AccountService accountService;
 

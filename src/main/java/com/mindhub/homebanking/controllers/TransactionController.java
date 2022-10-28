@@ -22,13 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -56,7 +50,6 @@ public class TransactionController {
     @PostMapping("/api/clients/current/accounts/transactions")
     public ResponseEntity<Object> newTransaction(@RequestParam Double amount, @RequestParam String description, @RequestParam String originAccount, @RequestParam String destinyAccount, Authentication authentication) {
 
-
         Account newOriginAccount = accountService.findByNumber(originAccount);
         Account newDestinyAccount = accountService.findByNumber(destinyAccount);
 
@@ -78,7 +71,6 @@ public class TransactionController {
         if(newOriginAccount.getBalance() < amount){
             return new ResponseEntity<>("Not enough money", HttpStatus.FORBIDDEN);
         }
-
 
         Double balanceCredit = newDestinyAccount.getBalance() + amount;
         Double balanceDebit = newOriginAccount.getBalance() - amount;
@@ -168,7 +160,7 @@ public class TransactionController {
         return new ResponseEntity<>("transactions",HttpStatus.CREATED);
     }
 
-    public static void createPdf(Set<Transaction> transactions) throws DocumentException, FileNotFoundException {
+    public void createPdf(Set<Transaction> transactions) throws DocumentException, FileNotFoundException {
         var doc = new Document();
         String route = System.getProperty("user.home");
         PdfWriter.getInstance(doc, new FileOutputStream(route + "/Downloads/TransactionInfo.pdf"));

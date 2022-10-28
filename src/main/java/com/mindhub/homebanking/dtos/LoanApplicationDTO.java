@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.dtos;
 
+import com.mindhub.homebanking.models.ClientLoan;
 import com.mindhub.homebanking.models.Loan;
 
 
@@ -46,4 +47,6 @@ public class LoanApplicationDTO {
     public void setDestinyAccount(String destinyAccount) {
         this.destinyAccount = destinyAccount;
     }
+
+
 }

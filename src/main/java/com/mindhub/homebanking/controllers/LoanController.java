@@ -5,7 +5,6 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.*;
-import com.mindhub.homebanking.repositories.LoanRepository;
 import com.mindhub.homebanking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.mindhub.homebanking.models.ClientLoan.interestLoan;
 import static com.mindhub.homebanking.models.TransactionType.CREDIT;
 import static java.util.stream.Collectors.toList;
 
@@ -92,51 +91,9 @@ public class LoanController {
 
         ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount(), loanApplicationDTO.getPayments(),currentClient,loanId);
 
-        switch (loanId.getName()){
-            case "Personal":
-                switch (clientLoan.getPayments()){
-                    case 6: clientLoan.setAmount(clientLoan.getAmount() * 1.20);
-                        break;
-                    case 12: clientLoan.setAmount(clientLoan.getAmount() * 1.30);
-                        break;
-                    case 24: clientLoan.setAmount(clientLoan.getAmount() * 1.40);
-                        break;
-                }
-                break;
-            case "Hipotecario":
-                switch (clientLoan.getPayments()){
-                    case 12: clientLoan.setAmount(clientLoan.getAmount() * 1.30);
-                        break;
-                    case 24: clientLoan.setAmount(clientLoan.getAmount() * 1.40);
-                        break;
-                    case 36: clientLoan.setAmount(clientLoan.getAmount() * 1.45);
-                        break;
-                    case 48: clientLoan.setAmount(clientLoan.getAmount() * 1.50);
-                        break;
-                    case 60: clientLoan.setAmount(clientLoan.getAmount() * 1.55);
-                        break;
-                }
-                break;
-            case "Automotriz":
-                switch (clientLoan.getPayments()) {
-                    case 6:
-                        clientLoan.setAmount(clientLoan.getAmount() * 1.20);
-                        break;
-                    case 12:
-                        clientLoan.setAmount(clientLoan.getAmount() * 1.30);
-                        break;
-                    case 24:
-                        clientLoan.setAmount(clientLoan.getAmount() * 1.40);
-                        break;
-                    case 36:
-                        clientLoan.setAmount(clientLoan.getAmount() * 1.45);
-                        break;
-                }
-                break;
-            default:
-                break;
+        // modifico los intereses de los prestamos, en base a sus cuotas.
+        interestLoan(loanId, clientLoan);
 
-        }
         clientLoanService.saveClientLoan(clientLoan);
 
         return new ResponseEntity<>("Loan approved",HttpStatus.CREATED);
@@ -163,7 +120,7 @@ public class LoanController {
             return new ResponseEntity<>("Missing Data",HttpStatus.FORBIDDEN);
         }
 
-        if(loanService.getAllLoans().stream().map(x -> x.getName()).collect(Collectors.toSet()).contains(name)){
+        if(loanService.getAllLoans().stream().map(Loan::getName).collect(Collectors.toSet()).contains(name)){
             return new ResponseEntity<>("same name of previous loan", HttpStatus.FORBIDDEN);
         }
 
