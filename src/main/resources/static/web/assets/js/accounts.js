@@ -130,7 +130,7 @@ createApp({
             .catch((error) => {
                 Swal.fire({
                     icon: 'error',
-                    timer:2500,
+                    timer:1500,
                     showConfirmButton: false,
                     text:error.response.data
                 })

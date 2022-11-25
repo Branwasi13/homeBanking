@@ -116,7 +116,7 @@
                 <h5>origin account</h5>
                 <select v-model="originAccount" class="form-select form-select-lg mb-3"
                   aria-label=".form-select-lg example">
-                  <option v-for="account in accounts" v-show="account.number != destinyAccount" :value="account.number">
+                  <option v-for="account in accounts.filter(acc => acc.accountState == true)" v-show="account.number != destinyAccount" :value="account.number">
                     {{account.number}}</option>
                 </select>
               </div>
@@ -124,7 +124,7 @@
                 <h5>destiny account</h5>
                 <select v-model="destinyAccount" class="form-select form-select-lg mb-3"
                   aria-label=".form-select-lg example">
-                  <option v-for="account in accounts" v-show="account.number != originAccount" :value="account.number">
+                  <option v-for="account in accounts.filter(acc => acc.accountState == true)" v-show="account.number != originAccount" :value="account.number">
                     {{account.number}}</option>
                 </select>
               </div>
