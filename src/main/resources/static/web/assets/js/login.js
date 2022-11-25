@@ -41,7 +41,7 @@ const app = Vue.
                     });
             },
             register() {
-                axios.post('/api/clients',"firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.emailRegister + "&pwd=" + this.pwdRegister,{headers : {'Content-Type':'application/x-www-form-urlencoded'}})
+                axios.post('/api/clients',"firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.emailRegister + "&password=" + this.pwdRegister,{headers : {'Content-Type':'application/x-www-form-urlencoded'}})
                     .then(() =>{
                             axios.post("/api/login", `email=${this.emailRegister}&pwd=${this.pwdRegister}`,
                             {headers:{'content-type': 'application/x-www-form-urlencoded'}}
